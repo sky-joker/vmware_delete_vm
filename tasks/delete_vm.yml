@@ -1,0 +1,13 @@
+---
+- name: Delete vm
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname | default(lookup('env', 'VMWARE_HOST')) }}"
+    username: "{{ vcenter_username | default(lookup('env', 'VMWARE_USER')) }}"
+    password: "{{ vcenter_password | default(lookup('env', 'VMWARE_PASSWORD')) }}"
+    validate_certs: "{{ validate_certs | default(false) }}"
+    datacenter: "{{ datacenter_name }}"
+    folder: "{{ vm_folder | default('vm') }}"
+    template: "{{ template_name | default('') }}"
+    name: "{{ vm_name }}.{{ domain }}"
+    force: "{{ force | default(true) }}"
+    state: absent
