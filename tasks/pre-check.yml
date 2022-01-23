@@ -57,3 +57,13 @@
     msg: "{{ folder_name }} not found."
   when:
     - folder_path | map('regex_search', vm_folder + '$') | select('string') | list | length == 0
+
+- name: Ensure vm does exist
+  community.vmware.vmware_guest_info:
+    hostname: "{{ vcenter_hostname | default(lookup('env', 'VMWARE_HOST')) }}"
+    username: "{{ vcenter_username | default(lookup('env', 'VMWARE_USER')) }}"
+    password: "{{ vcenter_password | default(lookup('env', 'VMWARE_PASSWORD')) }}"
+    validate_certs: "{{ validate_certs | default(false) }}"
+    datacenter: "{{ datacenter_name }}"
+    folder: "{{ folder_name }}"
+    name: "{{ vm_name }}.{{ domain }}"
