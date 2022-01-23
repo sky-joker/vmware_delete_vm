@@ -54,7 +54,7 @@
 
 - name: If the folder doesn't exist
   ansible.builtin.fail:
-    msg: "{{ folder_name }} not found."
+    msg: "{{ vm_folder }} not found."
   when:
     - folder_path | map('regex_search', vm_folder + '$') | select('string') | list | length == 0
 
@@ -65,5 +65,5 @@
     password: "{{ vcenter_password | default(lookup('env', 'VMWARE_PASSWORD')) }}"
     validate_certs: "{{ validate_certs | default(false) }}"
     datacenter: "{{ datacenter_name }}"
-    folder: "{{ folder_name }}"
+    folder: "{{ vm_folder }}"
     name: "{{ vm_name }}.{{ domain }}"
