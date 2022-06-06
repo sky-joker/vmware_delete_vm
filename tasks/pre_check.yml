@@ -67,6 +67,8 @@
     datacenter: "{{ datacenter_name }}"
     folder: "{{ vm_folder }}"
     name: "{{ item.vm_name }}.{{ domain }}"
+  vars:
+    ansible_async_dir: "/tmp/.ansible_async"
   async: 300
   poll: 0
   register: vm_exist_result
@@ -75,6 +77,8 @@
 - name: Make sure the tasks are until completion
   ansible.builtin.async_status:
     jid: "{{ item.ansible_job_id }}"
+  vars:
+    ansible_async_dir: "/tmp/.ansible_async"
   register: job_result
   until: job_result.finished
   retries: 300
