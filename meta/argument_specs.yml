@@ -19,7 +19,3 @@ argument_specs:
         type: str
         required: true
         description: "The folder name to deploy vm"
-      vm_name:
-        type: str
-        required: true
-        description: "The name for deploying vm"
